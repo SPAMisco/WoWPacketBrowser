@@ -85,8 +85,7 @@ public class Readers {
     public static boolean ReadBit(ByteArrayInputStream buff) {
         ++_bitPos;
 
-        if (_bitPos > 7)
-        {
+        if (_bitPos > 7) {
         	_bitPos = 0;
         	_curBitVal = (byte) buff.read();
         }
