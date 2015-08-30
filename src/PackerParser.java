@@ -10,6 +10,10 @@ import java.util.List;
 public class PackerParser {
 	public static List<Packet> packets = new ArrayList<Packet>();
 	
+	/**
+	 * Parse sniff file
+	 * @param File sniffFile
+	 */
     public static void parseSniffFile(File sniffFile) {
     	Path file = sniffFile.toPath();
     	try {
@@ -25,7 +29,7 @@ public class PackerParser {
 			sniff.skip(1);
 			
 			// Client buid
-			int build = Readers.readUInt32(sniff);
+			ClientVersion.sniffFileVersion = Readers.readUInt32(sniff);
 			
 			// Client locale
 			String locale = Readers.readString(sniff, 4);
@@ -46,7 +50,7 @@ public class PackerParser {
 			sniff.skip(optionalDataSize);
 			
 			System.out.println("Packet Version: 0x" + Integer.toHexString(ver));
-			System.out.println("Client buid: " + build);
+			System.out.println("Client buid: " + ClientVersion.sniffFileVersion);
 			System.out.println("Client locale: " + locale);
 			
 			while (sniff.available() != 0) {
@@ -65,12 +69,17 @@ public class PackerParser {
 				packets.add(new Packet(opcode, packetLen, packetDirection, tickCount, cindex, b));
 			}
 			
+			Opcode.initOpcodeTables(ClientVersion.sniffFileVersion);
+			
 			for (Packet p : packets) {
-				switch (p.opcode) {
-					case 0x0EA9:
+				if (!Opcode.existOpcode(p.opcode))
+					continue;
+				
+				switch (Opcode.getOpcode(p.opcode)) {
+					case Opcode.SMSG_ON_MONSTER_MOVE:
 						MovementPackets.parseSplineMovement(p);
 						break;
-					case 0x1CB2:
+					case Opcode.SMSG_UPDATE_OBJECT:
 						UpdatePackets.parseUpdateObject(p);
 						break;
 					default: break;

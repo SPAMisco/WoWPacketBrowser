@@ -7,8 +7,11 @@ import java.util.List;
 public class MovementPackets {
 	public static HashMap<BigInteger, List<G3DVector>> waypoints = new HashMap<BigInteger, List<G3DVector>>();
 	public static HashMap<Long, List<BigInteger>> guids = new HashMap<Long, List<BigInteger>>();
-	
-	// SMSG_ON_MONSTER_MOVE
+
+	/**
+	 * Parse movement packet (SMSG_ON_MONSTER_MOVE)
+	 * @param Packet packet
+	 */
 	public static void parseSplineMovement(Packet packet) {
 		ByteArrayInputStream data = new ByteArrayInputStream(packet.data);
 		
@@ -79,6 +82,12 @@ public class MovementPackets {
         }
 	}
 	
+	/**
+	 * Add waypoint point
+	 * @param ObjectGUID guid
+	 * @param G3DVector vector
+	 * @param Integer type
+	 */
 	public static void addWaypoint(ObjectGUID guid, G3DVector pos, int type) {
 		pos.type = type;
         if (waypoints.containsKey(guid.getFull())) {

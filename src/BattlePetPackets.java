@@ -2,6 +2,10 @@ import java.io.ByteArrayInputStream;
 
 
 public class BattlePetPackets {
+	/**
+	 * Read battle per full update data
+	 * @param ByteArrayInputStream data
+	 */
 	public static void ReadPetBattleFullUpdate(ByteArrayInputStream data) {
         for (int i = 0; i < 2; ++i)
             ReadPetBattlePlayerUpdate(data);
@@ -25,6 +29,10 @@ public class BattlePetPackets {
         Readers.ReadBit(data); // CanAwardXP
 	}
 
+	/**
+	 * Read battle pet enviro update
+	 * @param ByteArrayInputStream data
+	 */
 	public static void ReadPetBattleEnviroUpdate(ByteArrayInputStream data) {
         int aurasCount = Readers.readInt32(data);
         int statesCount = Readers.readInt32(data);
@@ -43,6 +51,10 @@ public class BattlePetPackets {
         }
 	}
 
+	/**
+	 * Read battle per player update
+	 * @param ByteArrayInputStream data
+	 */
 	public static void ReadPetBattlePlayerUpdate(ByteArrayInputStream data) {
 		Readers.readPackedGUID(data); // CharacterID
 
@@ -62,6 +74,10 @@ public class BattlePetPackets {
             ReadPetBattlePetUpdate(data);
 	}
 
+	/**
+	 * Read battle pet update
+	 * @param ByteArrayInputStream data
+	 */
 	public static void ReadPetBattlePetUpdate(ByteArrayInputStream data) {
 		Readers.readPackedGUID(data); // BattlePetGUID
 

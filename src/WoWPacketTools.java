@@ -61,7 +61,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTabbedPane;
 
-public class WayPointEditor {
+public class WoWPacketTools {
 	public static String sql_url = "jdbc:mysql://localhost:3306/wod_world";
 	public static String sql_user = "trinity";
 	public static String sql_password = "Q1pEJ3";
@@ -178,7 +178,7 @@ public class WayPointEditor {
 
 		JFrame f = new JFrame();
 		f.setIconImage(Toolkit.getDefaultToolkit().getImage(
-				WayPointEditor.class
+				WoWPacketTools.class
 						.getResource("/icons/world_of_warcraft_icon.png")));
 		f.setTitle("WoW Packet Browser By Spamisco");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
